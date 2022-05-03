@@ -10,6 +10,7 @@ Bundler.require(*Rails.groups)
 
 module Bikeramp
   class Application < Rails::Application
+    config.action_controller.permit_all_parameters = true # Dry validation used
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 

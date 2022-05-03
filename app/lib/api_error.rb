@@ -14,7 +14,7 @@ module ApiError
   def validate(params)
     @result = schema.call(params.to_h)
     error = full_error(code: "validation_error", parameter_errors: result.errors)
-    result.success? ? Success(result.to_h) : Failure(error)
+    result.success? ? Success(result.to_h) : Failure([__callee__, error])
   end
 
   def full_error(code:, message: nil, parameter_errors: nil)

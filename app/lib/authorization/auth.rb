@@ -6,24 +6,26 @@ module Authorization
       token = yield fetch_authorization_token(headers)
       decoded_token = yield decode_authorization_token(token)
       yield validate_current_user_data(decoded_token)
+
+      Success(decoded_token)
     end
 
     def fetch_authorization_token(headers)
       token = headers["Authorization"]
-      token.present? ? Success(token) : Failure()
+      token.present? ? Success(token) : Failure[__method__, { token: "Missing token" }]
     end
 
     def decode_authorization_token(token)
-      decoded_token = ::Authorization::JsonWebToken.decode(token.split.last)
-      decoded_token ? Success(decoded_token) : Failure()
+      decoded_token = ::Authorization::JsonWebToken.decode(token)
+      decoded_token ? Success(decoded_token) : Failure[__method__, { token: "Invalid token" }]
     end
 
     def validate_current_user_data(decoded_token)
       user_id = decoded_token[:id]
 
-      return Failure() unless user_id
+      return Failure[__method__, { token: "Invalid token" }] unless user_id
 
-      Success(decoded_token)
+      Success()
     end
   end
 end

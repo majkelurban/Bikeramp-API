@@ -1,21 +1,18 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
+  include Dry::Monads[:result]
+
   before_action :authorize_request
 
-  protected
-
   def authorize_request
-    render json: {}, status: :unauthorized unless current_user
+    case Authorization::Auth.new.call(request.headers)
+    in Success(token)
+      @current_user = User.find_by(id: token[:id])
+    in [*, error]
+      render json: { errors: error }, status: :unauthorized
+    end
   end
 
-  def current_user
-    return nil unless current_user_data
-
-    @current_user ||= User.find_by(id: current_user_data[:id])
-  end
-
-  def current_user_data
-    @current_user_data ||= Authorization::Auth.new.call(request.headers).success
-  end
+  attr_reader :current_user
 end

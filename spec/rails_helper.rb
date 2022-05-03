@@ -17,6 +17,12 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
 end
 
+RspecApiDocumentation.configure do |config|
+  config.format                 = :json
+  config.request_body_formatter = :json
+  config.disable_dsl_status!
+end
+
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec

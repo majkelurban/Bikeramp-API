@@ -26,3 +26,7 @@ Layout/HashAlignment:
 
 RSpec/LetSetup:
   Enabled: false
+
+RSpec:
+  Exclude:
+    - "**/spec/acceptance/**/*.rb"

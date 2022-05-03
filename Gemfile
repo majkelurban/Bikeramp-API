@@ -24,9 +24,9 @@ group :development, :test do
   gem "faker"
   gem "pry"
   gem "pry-rails"
+  gem "rspec_api_documentation"
   gem "rspec-rails"
   gem "shoulda-matchers"
-  gem "timecop"
 end
 
 group :development do
@@ -36,4 +36,10 @@ group :development do
   gem "rubocop"
   gem "rubocop-rails"
   gem "rubocop-rspec"
+end
+
+group :test do
+  gem "database_cleaner"
+  gem "database_cleaner-active_record"
+  gem "timecop"
 end

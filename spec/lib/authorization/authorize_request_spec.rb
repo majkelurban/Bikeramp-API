@@ -10,7 +10,7 @@ describe Authorization::Auth do
 
   context "when token is valid" do
     it "returns user id" do
-      expect(authorize_request[:id]).to eq(user.id)
+      expect(authorize_request.success[:id]).to eq(user.id)
     end
   end
 
