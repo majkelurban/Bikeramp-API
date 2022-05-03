@@ -5,10 +5,18 @@ module Trips
     class Create < ::Monads
       def call
         yield validate(params)
-        @distance = 21.20
+        @distance = yield calculate_distance
         yield save_trip
 
         Success()
+      end
+
+      def calculate_distance
+        distance = Distance.new.calculate(validated_params[:start_address], validated_params[:end_address])
+
+        return Failure[__method__, full_error(code: distance_error_code, message: distance_error_message)] unless distance > 0
+
+        Success(distance)
       end
 
       def save_trip
@@ -27,6 +35,14 @@ module Trips
 
       def schema
         ::Trips::Schemas::Create.new
+      end
+
+      def distance_error_code
+        "invalid_location"
+      end
+
+      def distance_error_message
+        "One or both provided locations are invalid."
       end
     end
   end

@@ -9,6 +9,8 @@ module Api
           head :created
         in :validate, error
           render json: { errors: error }, status: :unprocessable_entity
+        in :calculate_distance, error
+          render json: { errors: error }, status: :unprocessable_entity
         end
       end
     end

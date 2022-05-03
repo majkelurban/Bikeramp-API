@@ -30,3 +30,7 @@ RSpec/LetSetup:
 RSpec:
   Exclude:
     - "**/spec/acceptance/**/*.rb"
+
+Lint/DuplicateBranch:
+  Exclude:
+    - "**/app/controllers/**/*.rb"

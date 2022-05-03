@@ -31,7 +31,7 @@ resource "Trips" do
       end
     end
 
-    context "422" do
+    context "422 - Invalid params" do
       let(:params) do
         {
           price:         "price",
@@ -42,6 +42,21 @@ resource "Trips" do
       end
 
       example_request "Create trip [FAILURE - invalid params]" do
+        expect(response_status).to eq 422
+      end
+    end
+
+    context "422 - Invalid locations" do
+      let(:params) do
+        {
+          price:         30.40,
+          delivery_date: Time.zone.today,
+          start_address: " ,  ,  ",
+          end_address:   "Zielonaa 32, Lublin, Polska"
+        }
+      end
+
+      example_request "Create trip [FAILURE - invalid locations]" do
         expect(response_status).to eq 422
       end
     end

@@ -10,6 +10,7 @@ gem "bcrypt"
 gem "bootsnap", require: false
 gem "dry-monads"
 gem "dry-validation"
+gem "geocoder"
 gem "jwt"
 gem "pg", "~> 1.1"
 gem "puma", "~> 5.0"
