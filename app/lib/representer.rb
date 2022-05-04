@@ -2,6 +2,10 @@
 
 class Representer
   class << self
+    def represent_with(*properties)
+      @properties = properties
+    end
+
     def one(resource, current_user = nil)
       new(resource, current_user).map(properties)
     end

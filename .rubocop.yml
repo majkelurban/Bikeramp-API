@@ -34,3 +34,6 @@ RSpec:
 Lint/DuplicateBranch:
   Exclude:
     - "**/app/controllers/**/*.rb"
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 15

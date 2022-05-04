@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resource :trips, only: %w(create)
+
+      get "stats/weekly", to: "trips#weekly_stats"
     end
   end
 end

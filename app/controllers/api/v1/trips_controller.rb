@@ -13,6 +13,15 @@ module Api
           render json: { errors: error }, status: :unprocessable_entity
         end
       end
+
+      def weekly_stats
+        case ::Trips::UseCases::Stats::FetchWeekly.new(params, current_user).call
+        in Success(stats)
+          render json: ::Trips::Representers::WeeklyStats.one(stats)
+        in :validate, errors
+          render json: { errors: errors }, status: :unprocessable_entity
+        end
+      end
     end
   end
 end
