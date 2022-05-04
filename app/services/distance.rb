@@ -5,7 +5,7 @@ class Distance
     @start_address = start_address
     @end_address = end_address
 
-    Geocoder::Calculations.distance_between(start_cords, end_cords).truncate(2)
+    Geocoder::Calculations.distance_between(start_cords, end_cords).round(2)
   end
 
   private

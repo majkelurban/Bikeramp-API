@@ -22,6 +22,15 @@ module Api
           render json: { errors: errors }, status: :unprocessable_entity
         end
       end
+
+      def monthly_stats
+        case ::Trips::UseCases::Stats::FetchMonthly.new(params, current_user).call
+        in Success(stats)
+          render json: ::Trips::Representers::MonthlyStats.all(stats)
+        in :validate, errors
+          render json: { errors: errors }, status: :unprocessable_entity
+        end
+      end
     end
   end
 end

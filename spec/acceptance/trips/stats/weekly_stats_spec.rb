@@ -25,7 +25,7 @@ resource "Stats" do
 
     context "200" do
       with_options required: false do
-        parameter :ui_date, "Start address", type: :date
+        parameter :ui_date, "Selected date", type: :date
       end
 
       let(:params) do

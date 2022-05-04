@@ -38,7 +38,7 @@ describe Trips::UseCases::Stats::FetchWeekly do
       }
     end
 
-    it "returns current week stats" do
+    it "returns last week stats" do
       expect(weekly_stats.success.first.attributes.symbolize_keys).to eq({ id: nil, total_price: 78.00, total_distance: 67.00 })
     end
   end

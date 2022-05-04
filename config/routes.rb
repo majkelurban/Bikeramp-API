@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resource :trips, only: %w(create)
 
       get "stats/weekly", to: "trips#weekly_stats"
+      get "stats/monthly", to: "trips#monthly_stats"
     end
   end
 end

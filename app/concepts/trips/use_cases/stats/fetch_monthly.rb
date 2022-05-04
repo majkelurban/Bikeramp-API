@@ -3,7 +3,7 @@
 module Trips
   module UseCases
     module Stats
-      class FetchWeekly < ::Monads
+      class FetchMonthly < ::Monads
         def call
           yield validate(params)
           stats = yield fetch_stats
@@ -12,10 +12,10 @@ module Trips
         end
 
         def fetch_stats
-          stats = Trip.select("SUM(distance) as total_distance, SUM(price) as total_price")
+          stats = Trip.select("delivery_date, SUM(distance) as total_distance, AVG(distance) as avg_ride, AVG(price) as avg_price")
                       .where(user: current_user, delivery_date: range)
-                      .group("user_id")
-                      .order("user_id")
+                      .group("user_id, delivery_date")
+                      .order("user_id, delivery_date")
 
           Success(stats)
         end
@@ -28,9 +28,9 @@ module Trips
 
         def range
           if validated_params[:ui_date].present?
-            (validated_params[:ui_date].beginning_of_week)..(validated_params[:ui_date].end_of_week)
+            (validated_params[:ui_date].beginning_of_month)..(validated_params[:ui_date].end_of_month)
           else
-            (Time.zone.today.beginning_of_week)..(Time.zone.today.end_of_week)
+            (Time.zone.today.beginning_of_month)..(Time.zone.today.end_of_month)
           end
         end
 

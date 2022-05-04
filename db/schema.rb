@@ -17,9 +17,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_03_151311) do
   create_table "trips", force: :cascade do |t|
     t.string "start_address", null: false
     t.string "end_address", null: false
-    t.float "price", null: false
+    t.decimal "price", null: false
     t.date "delivery_date", null: false
-    t.float "distance", null: false
+    t.decimal "distance", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
